@@ -56,6 +56,7 @@ function game() {
     positionDino = Math.round(parseInt(getComputedStyle(dino).top))
     positionCactus = Math.round(parseInt(getComputedStyle(cactus).left))
     
+    
     if (positionCactus < 70 && positionCactus > 50 && positionDino > 20) {
         if (endGame) {
             cactus.classList.remove('cacMov')
