@@ -1,0 +1,161 @@
+
+*{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.game{
+    position: relative;
+    
+    width:800px;
+    border-bottom:2px solid black;
+    margin:200px 0 0 0;
+    
+    
+}
+.gameFon{
+    overflow: hidden;
+    position: relative;
+  
+    width: 800px;
+    height:500px;
+    margin:0 auto;
+}
+.dino{
+    background-image:url('img/dino.png');
+    background-repeat:no-repeat;
+    width:50px;
+    height:50px;
+    left:40px;
+    background-size:50px auto;
+    position:relative;
+    top:55px;
+    
+
+}
+.jump{
+    animation:jump 1s linear;
+}
+@keyframes jump{
+    0%{
+        top:55px;
+    }
+    30%{
+        top:-38px;
+    }
+    50%{
+        top:-45px;
+    }
+    70%{
+        top:-38px;
+    }
+    100%{
+        top:55px;
+    }
+}
+.cactus{
+    background-image:url('img/cactus.png');
+    width:20px;
+    height:40px;
+    background-size:20px auto;
+    background-repeat:no-repeat;
+    position:relative;
+    left:700px;
+    top:15px;
+    
+    
+
+}
+.menu{
+    position:absolute;
+    background: rgba(156, 156, 156, 0.516);
+    width:400px;
+    height:200px;
+    left:200px;
+    top:150px;
+    visibility:hidden;
+}
+.cacMov{
+    animation:cactusMov infinite linear;
+}
+.cactus div{
+    position: relative;
+    bottom:20px;
+}
+.dino div{
+    position: relative;
+    bottom:20px;
+}
+.stop{
+    color:rgb(164, 127, 197);
+    outline: none;
+    border: none;
+    box-shadow: 0 10px 5px 0 rgba(0, 0, 0, 0.325);
+    border-radius:10px;
+    width:290px;
+    font-size:36px;
+    margin:110px 60px;
+}
+.gover{
+    font-size: 40px;
+    position: absolute;
+    left:70px;
+    top:20px;
+    font-weight:900;
+    color:white;
+}
+@keyframes cactusMov{
+    0%{
+        left:700px;
+    }
+    100%{
+        left: -20px;
+    }
+}
+.land{
+    height:50px;
+
+}
+.earth{
+    position:absolute;
+    margin-top:20px;
+    
+    height: 1px;
+    background: rgb(138, 138, 138);
+    width:70px;
+    left:700px;
+    animation:earth infinite linear;
+    
+    
+}
+@keyframes earth{
+    0%{
+        left:700px;
+    }
+    100%{
+        left: -20px;
+    }
+}
+.cloud{
+    position: absolute;
+    top:100px;
+    background:url('img/cloud.png') no-repeat;
+    background-size:100px auto;
+    width:100px;
+    height:100px;
+    left:800px;
+    animation:cloud infinite linear;
+}
+@keyframes cloud{
+    0%{
+        left:800px;
+    }
+    100%{
+        left: -20px;
+    }
+}
+#total{
+    font-size:54px;
+    position:absolute;
+    right:20px;
+    top:-200px;
+    color:darkgray;
+}
