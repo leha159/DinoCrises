@@ -55,8 +55,7 @@ function game() {
     cactus.style.animationDuration = speedGame
     positionDino = Math.round(parseInt(getComputedStyle(dino).top))
     positionCactus = Math.round(parseInt(getComputedStyle(cactus).left))
-    texCactus.textContent = positionCactus
-    texDino.textContent = positionDino
+    
     if (positionCactus < 70 && positionCactus > 50 && positionDino > 20) {
         if (endGame) {
             cactus.classList.remove('cacMov')
