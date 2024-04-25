@@ -1,161 +1,200 @@
-
 *{
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 0;
+    padding:0;
 }
 .game{
-    position: relative;
-    
-    width:800px;
-    border-bottom:2px solid black;
-    margin:200px 0 0 0;
-    
-    
-}
-.gameFon{
-    overflow: hidden;
-    position: relative;
-  
-    width: 800px;
-    height:500px;
+    border:1px solid black;
+    width:1500px;
+    height:900px;
     margin:0 auto;
-}
-.dino{
-    background-image:url('img/dino.png');
-    background-repeat:no-repeat;
-    width:50px;
-    height:50px;
-    left:40px;
-    background-size:50px auto;
-    position:relative;
-    top:55px;
-    
-
-}
-.jump{
-    animation:jump 1s linear;
-}
-@keyframes jump{
-    0%{
-        top:55px;
-    }
-    30%{
-        top:-38px;
-    }
-    50%{
-        top:-45px;
-    }
-    70%{
-        top:-38px;
-    }
-    100%{
-        top:55px;
-    }
-}
-.cactus{
-    background-image:url('img/cactus.png');
-    width:20px;
-    height:40px;
-    background-size:20px auto;
-    background-repeat:no-repeat;
-    position:relative;
-    left:700px;
-    top:15px;
-    
-    
-
-}
-.menu{
-    position:absolute;
-    background: rgba(156, 156, 156, 0.516);
-    width:400px;
-    height:200px;
-    left:200px;
-    top:150px;
-    visibility:hidden;
-}
-.cacMov{
-    animation:cactusMov infinite linear;
-}
-.cactus div{
     position: relative;
-    bottom:20px;
-}
-.dino div{
-    position: relative;
-    bottom:20px;
-}
-.stop{
-    color:rgb(164, 127, 197);
-    outline: none;
-    border: none;
-    box-shadow: 0 10px 5px 0 rgba(0, 0, 0, 0.325);
-    border-radius:10px;
-    width:290px;
-    font-size:36px;
-    margin:110px 60px;
-}
-.gover{
-    font-size: 40px;
-    position: absolute;
-    left:70px;
-    top:20px;
-    font-weight:900;
-    color:white;
-}
-@keyframes cactusMov{
-    0%{
-        left:700px;
-    }
-    100%{
-        left: -20px;
-    }
-}
-.land{
-    height:50px;
-
-}
-.earth{
-    position:absolute;
-    margin-top:20px;
-    
-    height: 1px;
-    background: rgb(138, 138, 138);
-    width:70px;
-    left:700px;
-    animation:earth infinite linear;
-    
+    /* overflow: hidden; */
     
 }
-@keyframes earth{
-    0%{
-        left:700px;
-    }
-    100%{
-        left: -20px;
-    }
-}
-.cloud{
+.sky{
     position: absolute;
     top:100px;
-    background:url('img/cloud.png') no-repeat;
-    background-size:100px auto;
+    left:1500px;
+    background: url('img/sky1.png')0 0/contain no-repeat;
+    width:320px;
+    height:320px;
+    animation:skyAnim 1005s linear infinite;
+}
+
+
+.mes{
+    color:cadetblue;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 24px;
+    
+}
+.road{
+    width:1400px;
+    height:10px;
+    background-color: cadetblue;
+    margin:500px auto;
+}
+.person{
+    position: absolute;
+    top:400px;
+    left:400px;
+    background-image: url('person/beGo_00.png');
+    background-repeat: no-repeat;
     width:100px;
     height:100px;
-    left:800px;
-    animation:cloud infinite linear;
+    background-size:contain;
 }
-@keyframes cloud{
+.ruk{
+    position: absolute;
+    top:650px;
+    left:1100px;
+    background: url('img/rukzak.png')0 0/contain no-repeat;
+    width:200px;
+    height:200px;
+}
+.woodRuk{
+    position: absolute;
+    top:590px;
+    left:1100px;
+    background: url('img/wood/wood0.png')0 0/contain no-repeat;
+    width:100px;
+    height:100px;
+}
+.tree{
+    position: absolute;
+    top:200px;
+    left:1200px;
+    background: url('person/tree1.png')0 0/contain no-repeat;
+    width:300px;
+    height:300px;
+}
+.meTree{
+    position: absolute;
+    top:520px;
+    left:1200px;
+    visibility: hidden;
+    animation: miganie 3s linear infinite;
+}
+.mesRuk{
+    position: absolute;
+    top:620px;
+    left:800px;
+}
+.mesRuk2{
+    color:black;
+    position: absolute;
+    font-size:20px;
+    top:660px;
+    left:800px;
+}
+@keyframes miganie{
     0%{
-        left:800px;
+        opacity: 0.2;
+    }
+    50%{
+        opacity: 1;
     }
     100%{
-        left: -20px;
+        opacity: 0.2;
     }
 }
-#total{
-    font-size:54px;
-    position:absolute;
-    right:20px;
-    top:-200px;
-    color:darkgray;
+.total{
+    position: absolute;
+    top:350px;
+    left:1100px;
+    font-size: 34px;
+}
+.total2{
+    position: absolute;
+    top:362px;
+    left:1000px;
+    font-size: 14px;
+}
+.woodAll{
+    position: absolute;
+    top: 400px;
+    left:1020px;
+    width: 150px;
+    height: 100px;
+    
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    transform: rotate(180deg);
+   
+    
+    
+}
+.firewood{
+    background: url('img/wood.png')0 0/contain no-repeat;
+    width: 20px;
+    height: 20px;
+    
+}
+.firewood{
+    background: url('img/wood.png')0 0/contain no-repeat;
+    width: 20px;
+    height: 20px;
+    
+}
+.firewood:nth-child(3n){
+
+    margin-left:3px;
+    
+}
+.fireWoodPress{
+    position: absolute;
+    top: 530px;
+    left:1020px;
+    text-align: center;
+    animation: miganie 3s linear infinite;
+    visibility: hidden;
+}
+.warnehouse{
+    position: absolute;
+    top: 283px;
+    left:120px;
+    background: url('img/house.png')0 0/contain no-repeat;
+    width: 220px;
+    height: 220px;
+
+ 
+   
+    
+}
+.warnehouse2{
+    position: absolute;
+    top: -22px;
+    left:10px;
+    
+    width: 200px;
+    height: 220px;
+    display: flex;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    transform: rotate(180deg);
+    
+}
+.iconHouse{
+    position: absolute;
+    top: 40px;
+    left:240px;
+    background: url('img/skladicon.png')0 0/contain no-repeat;
+    width: 50px;
+    height: 50px;
+}
+.iconHouse:hover{
+    position: absolute;
+    top: 40px;
+    left:240px;
+    background: url('img/skladicon1.png')0 0/contain no-repeat;
+    width: 50px;
+    height: 50px;
+}
+.woodHouse{
+    
+    
+    background: url('img/woodHouse.png')0 0/contain no-repeat;
+    width: 10px;
+    height: 10px;
 }

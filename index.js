@@ -1,176 +1,285 @@
-let dino = document.querySelector('.dino')
-let cactus = document.querySelector('.cactus')
-let texCactus = cactus.querySelector('div')
-let texDino = dino.querySelector('div')
-let stop = document.querySelector('.stop')
-let audioJump = new Audio('img/jump.mp3')
-let audioFite = new Audio('img/fait.mp3')
-let menu = document.querySelector('.menu')
-let count = 0
+const pers = document.querySelector('.person')
+let mesTreePressF = document.querySelector('.meTree')
+let tree = document.querySelector('.tree')
+let messTotal = document.querySelector('.total')
+let firewood = document.querySelector('.firewood')
+let listFirWood = document.querySelector('.woodAll')
+let oblastGame = document.querySelector('.game')
+let vmestimostRukzak = document.querySelector('.meRvmes')
+let maxWeight = document.querySelector('.maxWeight')
+
+function createTeg(teg, clas, tet) {
+    let element = document.createElement(teg)
+    element.classList.add(clas)
+    if (tet) {
+        element.textContent = tet
+    }
+    return element
+}
 
 
-audioFite.volume = 0.1
-let speedGame = '2s'
-let tim = 100
-let run = true
-let runJump = true
-setInterval(function () {
-    if (runJump) {
-        if (run) {
-            dino.style.backgroundImage = 'url("img/dino1.png")'
-            run = false
+let warnehouse={
+    maxSklad:2000,
+    sklad:0,
+    vigruzka:function(){
+        warnehouse.sklad = rukzak.sumWood
+        rukzak.sumWood = 0
+    },
+}
+
+let go = true
+let anim = 1
+let anim2 = 5
+let animRub = true
+let animRubBack = 1
+
+let alex = {
+    sped: 30,
+}
+let timeGame = {
+    speedIntreval: 100,
+}
+
+let rukzak = {
+    weightMax: 22,
+    sumWood: 0,
+    vmes: function () {
+        vmestimostRukzak.textContent = this.sumWood
+    },
+    animLoading:function (ss) {
+        let r1 = 1020 + ss
+        let random = Math.floor(Math.random()*40)+590
+        let list = document.querySelector('.oblRukzaka')
+        let element = createTeg('div', 'woodRuk')
+        element.style.left = r1 + 'px'
+        element.style.top = random + 'px'
+        list.append(element)
+    },
+    animIf:40,
+}
+
+    
+
+let rubka
+let game = {
+    removeWood: function () {
+        let data = document.querySelectorAll('.firewood')
+        if (rukzak.weightMax > rukzak.sumWood) {
+            if (game.total > 0) {
+                data[game.total - 1].remove()
+                game.total -= 1
+                rukzak.sumWood++
+                rukzak.vmes()
+                if(rukzak.animIf<200){
+                    rukzak.animIf+=40
+                rukzak.animLoading(rukzak.animIf)
+                }
+                
+                messTotal.textContent = game.total
+            }
         } else {
-            dino.style.backgroundImage = 'url("img/dino2.png")'
-            run = true
+            return 0
+        }
+
+    },
+    animationGetWood: zamAnim(3)
+    ,
+    animationFireWood: function () {
+        let wood = createTeg('div', 'firewood')
+        listFirWood.append(wood)
+    },
+    total: 0,
+    count: function () {
+        this.total++
+        messTotal.textContent = this.total
+    },
+    animRub1: true,
+    animRubki: function () {         //рубка дерева
+        let audio = new Audio('musik/kolka.mp3')
+        if (this.animRub1) {
+            this.animRub1 = false
+            rubka = setInterval(function () {
+                tree.style.backgroundImage = `url("person/tree${animRubBack}.png")`
+                pers.style.backgroundImage = `url("person/rub/0${animRubBack}.png")`
+                animRubBack++
+                if (animRubBack == 3) {
+                    game.animationFireWood()
+                    audio.play()
+                    game.count()
+                    animRubBack = 1
+                }
+            }, alex.sped)
+        }
+
+    },
+    endRubka: function () {
+        clearInterval(rubka)
+        pers.style.backgroundImage = `url("person/beGo_00.png")`
+        tree.style.backgroundImage = `url("person/tree1.png")`
+        game.animRub1 = true
+    }
+}
+
+window.addEventListener('keydown', (e) => {
+    let goLeft = parseInt(getComputedStyle(pers).left)
+
+    if (e.code == 'KeyD') {
+
+        goLeft += alex.sped
+        if (goLeft < 1200) {
+            mesTreePressF.style.visibility = 'hidden'
+        } else {
+            mesTreePressF.style.visibility = 'visible'
+        }
+
+
+        if (goLeft < 1220) {
+            pers.textContent = goLeft //Кординаты где бегает
+            pers.style.left = goLeft + 'px'
+            pers.style.backgroundImage = `url("person/beGo_0${anim}.png")`
+            if (go) {
+                go = false
+                let r1 = setInterval(function () {
+                    anim++
+                    go = true
+                    clearInterval(r1)
+                }, 100)
+            }
+            if (anim == 3) {
+                anim = 1
+            }
+        }
+        document.onkeyup = function () {
+            pers.style.backgroundImage = `url("person/beGo_00.png")`
+        }
+
+
+    }
+    if (e.code == 'KeyA') {
+        goLeft = parseInt(getComputedStyle(pers).left)
+        goLeft -= alex.sped
+        pers.textContent = goLeft //Кординаты где бегает
+        if (goLeft < 1200) mesTreePressF.style.visibility = 'hidden'
+        if (goLeft > 40) {
+            pers.style.backgroundImage = `url("person/beGo_0${anim2}.png")`
+            if (go) {
+                go = false
+                let r1 = setInterval(function () {
+                    anim2++
+                    go = true
+                    clearInterval(r1)
+                }, 100)
+            }
+            if (anim2 == 6) {
+                anim2 = 5
+            }
+            pers.style.left = goLeft + 'px'
+        }
+        document.onkeyup = function () {
+            pers.style.backgroundImage = `url("person/beGo_00.png")`
+        }
+
+    }
+    if (e.code == 'KeyF') {                                         //////рубка деревева
+        if (goLeft > 1190) {
+            game.animRubki()
+            document.addEventListener('keyup', game.endRubka)
         }
     }
 
-
-}, tim)
-let jumpOn = true
-let jump = Math.round(parseInt(getComputedStyle(dino).top))
-window.addEventListener('keydown', function (evt) {
-    if (runJump) {
-        if (!dino.classList.contains('jump')) {
-            dino.classList.add('jump')
-            audioJump.play()
-            dino.style.backgroundImage = 'url("img/dino.png")'
-            runJump = false
-            setTimeout(function () {
-                dino.classList.remove('jump')
-                runJump = true
-
-            }, 1000)
+    if (goLeft >= 1020 && goLeft < 1160) {                           //Показать поднять дрова
+        if (rukzak.weightMax > rukzak.sumWood) {
+            document.querySelector('.fireWoodPress').style.visibility = 'visible'
+            if (game.total > 0) {
+                if (e.code == 'KeyF') {
+                    animationInterval('img/getWood', timeGame.speedIntreval, game.removeWood)
+                }
+            }
         }
+    } else {
+        document.querySelector('.fireWoodPress').style.visibility = 'hidden'
     }
+
+
 
 })
 
 
-let endGame = true
-let positionCactus
-let positionDino
-cactus.classList.add('cacMov')
-function game() {
-    cactus.style.animationDuration = speedGame
-    positionDino = Math.round(parseInt(getComputedStyle(dino).top))
-    positionCactus = Math.round(parseInt(getComputedStyle(cactus).left))
-    
-    
-    if (positionCactus < 70 && positionCactus > 50 && positionDino > 20) {
-        if (endGame) {
-            cactus.classList.remove('cacMov')
-            clearInterval(stopTotal)
-            clearInterval(stopLand)
-            clearInterval(stopCloud)
-            cactus.style.left = positionCactus + 'px'
-            jumpOn = false
-            
-            
-            speedGame = '0s'
-            audioFite.play()
-            endGame = false
-            runJump = false
-            dino.style.backgroundImage = 'url("img/dino.png")'
-            menu.style.visibility = 'visible'
-            console.log('Game over')
+
+
+
+function zamAnim(n) {         //замыкание анимации
+    let count = 0
+    return function () {
+        if (count > n) {
+            return count = 0
         }
-    }
-}
-let r1 = setInterval(game, 10)
-let starGame = false
-stop.onclick = function () {
-    if (starGame) {
-        r1 = setInterval(game, 10)
-        starGame = false
-    } else {
-        clearInterval(r1)
-        cactus.style.left = positionCactus + 'px'
-        cactus.style.animationDuration = '0s'
-        starGame = true
+        return count++
     }
 }
 
-let land = document.querySelector('.land')
-function lenc() {
-    let earth = document.createElement('div')
-    earth.classList.add('earth')
-    earth.style.animationDuration = speedGame
-    let randWhite = Math.round(Math.random() * 40)
-    let randTop = Math.round(Math.random() * 20)
-    earth.style.marginTop = randTop + 'px'
-    earth.style.width = randWhite + 'px'
-    land.append(earth)
-    let whi = parseInt(getComputedStyle(earth).width)
-    let r1 = setInterval(function () {
-        let position = parseInt(getComputedStyle(earth).left)
-
-        if (position < -10) {
-
-            earth.remove()
-        }
-    }, 10)
-}
-let stopLand = setInterval(lenc, parseInt(speedGame) * 100)
-let gameFon = document.querySelector('.gameFon')
-let animCloud = function () {
-    let cloud = document.createElement('div')
-    cloud.classList.add('cloud')
-    let top = (function () {
-        return Math.floor(Math.random() * (100 - 50) + 50)
-    })()
-    cloud.style.top = top + 'px'
-    cloud.style.animationDuration = speedGame
-    let positionCloud = parseInt(getComputedStyle(cloud).left)
-
-    gameFon.append(cloud)
-    setTimeout(function () {
-        cloud.remove()
-    }, 32000)
-
-
-
-
-}
-
-let stopCloud = setInterval(animCloud, 8000)
-
-
-let total = document.getElementById('total')
-
-function totals() {
-
-    count += 10
-    if (count >= 10 && count < 100) {
-        total.textContent = '0000' + count
-    } else if (count >= 100 && count < 1000) {
-        total.textContent = '000' + count
-    }
-    else if (count >= 1000 && count < 10000) {
-        total.textContent = '00' + count
-    }
-    else if (count >= 10000 && count < 100000) {
-        total.textContent = '0' + count
-    } else if (count >= 100000 && count < 1000000) {
-        total.textContent = '0' + count
+function animationInterval(path, time, fun) {
+    let score
+    let data
+    if (game.animRub1) {
+        score = game.animationGetWood()
+        game.animRub1 = false
+        data = setInterval(function () {
+            pers.style.backgroundImage = `url("${path}${score}.png")`
+            game.animRub1 = true
+            if (score == 3) {
+                fun()
+                console.log('32')
+            }
+            clearInterval(data)
+        }, time)
     }
 
-}
-let stopTotal = setInterval(totals, 200)
-
-
-stop.onclick = function () {
-    menu.style.visibility = 'hidden'
-    count = 0
-    cactus.classList.add('cacMov')
-    stopTotal = setInterval(totals, 200)
-    speedGame = '2s'
-    stopCloud = setInterval(animCloud, 8000)
-    stopLand = setInterval(lenc, parseInt(speedGame) * 100)
-    endGame = true
-    runJump = true
-
 
 }
+function skyOn() {
 
+    let speedSky = 1
+    for (let i = 0; i < 2; i++) {
+        let sky = createTeg('div', 'sky')
+        oblastGame.append(sky)
+        sky.style.left = Math.floor(Math.random() * 1000) + 'px'
+        sky.style.backgroundImage = ` url('img/sky${Math.floor(Math.random() * 5) + 1}.png')`
+        sky.style.width = Math.floor(Math.random() * 150) + 100 + 'px'
+        sky.style.top = Math.floor(Math.random() * 200) + 'px'
+        let r1 = setInterval(function () {
+            let data = parseInt(getComputedStyle(sky).left)
 
+            sky.style.left = (data - speedSky) + 'px'
+            if (data < -100) {
+                sky.remove()
+                clearInterval(r1)
+
+            }
+        }, Math.floor(Math.random() * 1000))
+    }
+    r33()
+    function r33() {
+        let random = Math.floor(Math.random() * 100000)
+        let r2 = setTimeout(function () {
+            let sky = createTeg('div', 'sky')
+            oblastGame.append(sky)
+            speedSky = 1
+            sky.style.backgroundImage = ` url('img/sky${Math.floor(Math.random() * 5) + 1}.png')`
+            sky.style.width = Math.floor(Math.random() * 150) + 100 + 'px'
+            sky.style.top = Math.floor(Math.random() * 200) + 'px'
+            let r1 = setInterval(function () {
+                let data = parseInt(getComputedStyle(sky).left)
+
+                sky.style.left = (data - speedSky) + 'px'
+                if (data < -100) {
+                    sky.remove()
+                    clearInterval(r1)
+
+                }
+            }, Math.floor(Math.random() * 1000))
+            r33()
+        }, random)
+    }
+}
+skyOn() //тучи
